@@ -9,14 +9,14 @@ import propeller.Const;
 /**
  * @author Konovalov Mihail
  * @date 20.09.2020
- * @Description:
+ * @Description: Page Main Model
  **/
 
 
 public class WebPageMain {
     WebPageLogin webPageLogin;
     private WebDriver driver;
-    private String webPageMainURL = Const.MAINPAGE_URL.getValue();
+    private String webPageMainURL = Const.MAIN_PAGE_URL.getValue();
     private WebDriverWait driverWait;
     private final int TIME_OF_WAIT = 10;
 

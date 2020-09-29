@@ -1,11 +1,7 @@
 package propeller.webpages;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -13,21 +9,29 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import propeller.Const;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 /**
  * @author Konovalov Mihail
  * @date 10.09.2020
- * @Description:
+ * @Description: Page Login model
  **/
 
 public class WebPageLogin {
     private WebDriver driver;
-    private String webPageLoginURL = Const.MAINPAGE_URL.getValue();
+    private String webPageLoginURL = Const.MAIN_PAGE_URL.getValue();
     private WebDriverWait driverWait;
     private final int TIME_OF_WAIT = 10;
 
+    @FindBy(xpath = "//*[contains(text(),'Welcome to Propeller Championship!')]")
+    private WebElement textWelcome;
+
+    @FindBy(xpath = "//*[contains(text(),'Fill login form to sign in')]")
+    private WebElement textFillLogin;
+
+    @FindBy(xpath = "//*[contains(text(),'never share your email')]")
+    private WebElement textNeverShareEmail;
+
+    @FindBy(xpath = "//*[contains(text(),'never save your password')]")
+    private WebElement textNeverSavePassword;
 
     @FindBy(xpath = "//div[@onclick='startInputLogin()']")
     private WebElement fieldOverLogin;
@@ -54,6 +58,18 @@ public class WebPageLogin {
         driver.manage().deleteAllCookies();
         driver.get(webPageLoginURL);
         PageFactory.initElements(driver, this);
+    }
+
+    public boolean elementsPresents(){
+        if (loginField.isDisplayed() &&
+            passwordField.isDisplayed() &&
+            buttonHover.isDisplayed() &&
+            textWelcome.isDisplayed() &&
+            textFillLogin.isDisplayed() &&
+            textNeverShareEmail.isDisplayed() &&
+            textNeverSavePassword.isDisplayed())
+            return true;
+        else return false;
     }
 
     public boolean enterLoginAndPasswordRightWay(String login, String password) {
@@ -110,7 +126,7 @@ public class WebPageLogin {
     }
 
     public void waitForLoadingMainPage() {
-        driverWait.until(ExpectedConditions.urlToBe(Const.MAINPAGE_URL.getValue()));
+        driverWait.until(ExpectedConditions.urlToBe(Const.MAIN_PAGE_URL.getValue()));
     }
 
 
